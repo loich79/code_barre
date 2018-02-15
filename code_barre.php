@@ -1,11 +1,9 @@
 <?php
-
     // initialisation des variables
     $sum = 0;
     $barCode = "";
     $barCodeKey = "";
     $errMsg = "";
-
 
     // teste les données récupérées par le formulaire
     if (isset($_POST['barCode'])) {
@@ -13,7 +11,7 @@
         if (preg_match("#^[0-9]{12}$#", $_POST['barCode'])) {
             $barCode = $_POST['barCode'];
         } else {
-            $errMsg = "vous devez saisir une suite de 12 chiffres";
+            $errMsg = "Vous devez saisir une suite de 12 chiffres";
             $barCode = "";
         }
     } else {
@@ -55,22 +53,28 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Calcul de la clé d'un code barre</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     </head>
 
     <body>
-        <h1>Calcul de la clé d'un code barre</h1>
-        <form method="POST">
-            <label for="barCode">Saississez les 12 premiers chiffres de votre code barre : </label>
-            <input type="text" id="barCode" name="barCode" />
-            <input type="submit" value="Ok">
-        </form>
-        <p><?= $errMsg ?></p>
-        <p>votre saisie : <?= $barCode ?></p>
-        <p>votre clé de code barre : <?= $barCodeKey ?></p>
-
-        <p>votre code barre : <?= $barCode." ". $barCodeKey ?></p>
-
+        <div class="container">
+            <h1 class="text-center">Calcul de la clé d'un code barre</h1>
+            <hr />
+            <form method="POST" class="form-inline">
+                <div class="form-group">
+                    <label for="barCode">Saississez les 12 premiers chiffres de votre code barre :&nbsp</label>
+                    <input type="text" id="barCode" name="barCode" class="form-control" />
+                    <input type="submit" class="btn btn-primary" value="Ok">
+                </div>
+            </form>
+            <p class="alert-danger"><?= $errMsg ?></p>
+            <p>votre saisie : <?= $barCode ?></p>
+            <p>votre clé de code barre : <?= $barCodeKey ?></p>
+            <p>votre code barre : <?= $barCode." ". $barCodeKey ?></p>
+        </div>
     </body>
 </html>
 
