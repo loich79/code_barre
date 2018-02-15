@@ -1,16 +1,26 @@
 <?php
+
+    // initialisation des variables
+    $sum = 0;
+    $barCode = "";
+    $barCodeKey = "";
+    $errMsg = "";
+
+
     // teste les données récupérées par le formulaire
     if (isset($_POST['barCode'])) {
-       $barCode = $_POST['barCode'];
+        // teste si la saisie est bien constituée de 12 chiffres
+        if (preg_match("#^[0-9]{12}$#", $_POST['barCode'])) {
+            $barCode = $_POST['barCode'];
+        } else {
+            $errMsg = "vous devez saisir une suite de 12 chiffres";
+            $barCode = "";
+        }
     } else {
         $barCode = "";
     }
 
-    // initialisation de la sommme et de la clé
-    $sum = 0;
-    $barCodeKey = "";
-
-    // teste si le code barre existe
+// teste si le code barre existe
     if ($barCode !== "") {
                 // parcourt la suite de chiffre du code barre
         for ($i = 0; $i < strlen($barCode); $i++) {
@@ -52,9 +62,10 @@
         <h1>Calcul de la clé d'un code barre</h1>
         <form method="POST">
             <label for="barCode">Saississez les 12 premiers chiffres de votre code barre : </label>
-            <input type="text" id="barCode" name="barCode"/>
+            <input type="text" id="barCode" name="barCode" />
             <input type="submit" value="Ok">
         </form>
+        <p><?= $errMsg ?></p>
         <p>votre saisie : <?= $barCode ?></p>
         <p>votre clé de code barre : <?= $barCodeKey ?></p>
 
